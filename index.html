@@ -1,402 +1,268 @@
 <!doctype html>
 <html lang="it">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LinkedIn Badges</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Raduno MVP - MCT - Bologna 26 settembre 2025</title>
 
-    <!-- LinkedIn badge script -->
-    <script src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+  <!-- LinkedIn badge script -->
+  <script src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
 
-    <style>
-        :root {
-            --li-blue: #0A66C2;
+  <style>
+    :root{
+      --li-blue: #0A66C2;
 
-            --gap: 24px;
-            --card-radius: 12px;
-            --card-pad: 16px;
-            --card-h: 340px;
-            --card-w: 360px;
+      --gap: 24px;
+      --card-radius: 12px;
+      --card-pad: 16px;
 
-            --badge-w: 280px;
+      --card-h: 340px;
+      --card-w: 360px;
 
-            --bg: #f5f5f5;
-            --card-bg: #ffffff;
-            --shadow: 0 4px 12px rgba(0, 0, 0, .06);
+      /* Badge più stretti */
+      --badge-w: 280px;
 
-            --pagebar-h: 6px;
-            --cardbar-h: 6px;
-        }
+      --bg: #f5f5f5;
+      --card-bg: #ffffff;
+      --shadow: 0 4px 12px rgba(0,0,0,.06);
 
-        * {
-            box-sizing: border-box;
-        }
+      --pagebar-h: 6px;
+      --cardbar-h: 6px;
+    }
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg);
-            padding: 20px;
-            padding-top: calc(20px + var(--pagebar-h));
-            min-height: 100vh;
-        }
+    *{ box-sizing: border-box; }
 
-        /* Barra blu in cima alla pagina 
+    body{
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      padding: 20px;
+      padding-top: calc(20px + var(--pagebar-h));
+      min-height: 100vh;
+    }
+
+    /* Barra blu in cima alla pagina */
     body::before{
-      content: "";
+      content:"";
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: var(--pagebar-h);
       background: var(--li-blue);
       z-index: 9999;
-    } */
+    }
 
-        h1 {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--li-blue);
-            margin: 0 0 32px;
-        }
+    .page-title{
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--li-blue);
+      margin: 0 0 10px 0;
+    }
 
-        /* GRID */
-        .badges {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--gap);
-            justify-items: center;
-        }
+    .page-subtitle{
+      text-align: center;
+      color: #000;
+      font-size: 1rem;
+      margin: 0 0 32px 0;
+    }
 
-        @media (max-width: 1024px) {
-            .badges {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
+    /* GRID */
+    .badges{
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--gap);
+      justify-items: center; /* centra le card nelle celle */
+    }
 
-        @media (max-width: 768px) {
-            .badges {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+    /* Responsive */
+    @media (max-width: 1024px){
+      .badges{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px){
+      .badges{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px){
+      body{ padding: 14px; padding-top: calc(14px + var(--pagebar-h)); }
+      .page-title{ font-size: 1.4rem; }
+      .page-subtitle{ font-size: .95rem; }
+      .badges{ grid-template-columns: 1fr; gap: 16px; }
+      :root{ --card-h: 300px; }
+    }
 
-        @media (max-width: 480px) {
-            .badges {
-                grid-template-columns: 1fr;
-            }
+    /* CARD */
+    .card{
+      position: relative;
+      width: var(--card-w);
+      max-width: 100%;
+      height: var(--card-h);
 
-            h1 {
-                font-size: 1.4rem;
-                margin-bottom: 22px;
-            }
+      background: var(--card-bg);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
 
-            body {
-                padding: 14px;
-                padding-top: calc(14px + var(--pagebar-h));
-            }
-        }
+      padding: calc(var(--card-pad) + var(--cardbar-h)) var(--card-pad) var(--card-pad);
+      overflow: hidden;
 
-        /* CARD */
-        .card {
-            position: relative;
-            width: var(--card-w);
-            max-width: 100%;
-            height: var(--card-h);
-            background: var(--card-bg);
-            border-radius: var(--card-radius);
-            box-shadow: var(--shadow);
-            padding: calc(var(--card-pad) + var(--cardbar-h)) var(--card-pad) var(--card-pad);
-            overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
 
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-        }
+    /* Barra blu su ogni card */
+    .card::before{
+      content:"";
+      position:absolute;
+      top:0; left:0; right:0;
+      height: var(--cardbar-h);
+      background: var(--li-blue);
+      border-radius: var(--card-radius) var(--card-radius) 0 0;
+      z-index: 5;
+      pointer-events: none;
+    }
 
-        /* Barra blu sulla card */
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--cardbar-h);
-            background: var(--li-blue);
-            border-radius: var(--card-radius) var(--card-radius) 0 0;
-            z-index: 5;
-            pointer-events: none;
-        }
+    /* BADGE */
+    .badge{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-        /* BADGE */
-        .badge {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
-        }
+    .LI-profile-badge,
+    .badge-base{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden !important;
+      display: block;
+    }
 
-        .LI-profile-badge,
-        .badge-base {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
+    /* IFRAME LinkedIn: centrato e stretto */
+    .LI-profile-badge iframe,
+    .badge-base iframe{
+      position: absolute !important;
+      top: 0 !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
 
-        /* IFRAME centrato e stretto */
-        .LI-profile-badge iframe,
-        .badge-base iframe {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: var(--badge-w);
-            height: 100%;
-            border: 0;
-            overflow: hidden;
-            display: block;
-        }
+      width: var(--badge-w) !important;
+      height: 100% !important;
 
-        /* Dark mode */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #121212;
-                --card-bg: #1e1e1e;
-                --shadow: 0 6px 18px rgba(0, 0, 0, .35);
-            }
+      border: 0 !important;
+      display: block !important;
+      overflow: hidden !important;
+    }
 
-            body {
-                color: #fff;
-            }
-        }
-
-        .page-subtitle {
-            text-align: center;
-            color: #000;
-            font-size: 1rem;
-            margin: -16px 0 32px;
-        }
-    </style>
+    /* Dark mode */
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#121212;
+        --card-bg:#1e1e1e;
+        --shadow: 0 6px 18px rgba(0,0,0,.35);
+      }
+      body{ color:#fff; }
+      .page-subtitle{ color:#fff; }
+    }
+  </style>
 </head>
 
 <body>
+  <h1 class="page-title">Raduno MVP - MCT - Bologna 26 settembre 2025</h1>
+  <p class="page-subtitle">Un’occasione per ritrovarsi, confrontarsi e fare Community: persone, tecnologia e passione al centro.</p>
 
-    <h1 class="page-title">Raduno MVP - MCT - Bologna 26 settembre 2025</h1>
+  <div class="badges">
 
-    <p class="page-subtitle">
-        Un’occasione per ritrovarsi, confrontarsi e fare Community: persone, tecnologia e passione al centro.
-    </p>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="aacerbis" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="alessandrofoschi" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="ascardova" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="alessio-iafrate" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="danardelean" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="demetrio-trigliozzi-106a1215" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="emmanuelevietti" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="enea-maestrelli-402733232" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="enricovignali" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="francesco-guiducci-47178071" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="fbuccoli" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="francoiacovelli" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="guidoimperatore" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="igormacori" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="geniodelmale" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="luca-pagliari-95a9b829a" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="luca-scarano" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="lucavitali" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="pandolfino" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="marco-adamo-92279a32" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="marcodalpino" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="marcofilocamo" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="massimobonanni" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="querze" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="rubertimichele" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="nicolaferrini" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="oriano-crippa-b2ab926" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="paolo-miotti-4480287" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="raffaelecolavecchi" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="roberto-mensa-a5850031" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="samuele-vagli-b63717128" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="zenotestoni" data-version="v1"></div></div></div>
+    <div class="card"><div class="badge"><div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="stefania-maggiorelli-2a971010" data-version="v1"></div></div></div>
 
+  </div>
 
-    <div class="badges">
+  <script>
+    // Fallback in modalità "incognito" / blocco cookie di terze parti:
+    // se LinkedIn non inserisce iframe entro 2.5s, mostra un link cliccabile al profilo.
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.badge').forEach(b => {
+          const iframe = b.querySelector('iframe');
+          if (!iframe){
+            const vanity = b.querySelector('.LI-profile-badge')?.getAttribute('data-vanity');
+            b.innerHTML = `
+              <div class="badge-fallback">
+                <div class="brand">LinkedIn</div>
+                <div>Apri il profilo di <b>${vanity || ''}</b></div>
+                <a href="https://www.linkedin.com/in/${vanity || ''}/" target="_blank" rel="noopener">Visualizza profilo</a>
+              </div>
+            `;
+          }
+        });
+      }, 2500);
+    });
+  </script>
 
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="aacerbis" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="alessandrofoschi" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="ascardova" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="alessio-iafrate" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="danardelean" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="demetrio-trigliozzi-106a1215" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="emmanuelevietti" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="enea-maestrelli-402733232" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="enricovignali" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="francesco-guiducci-47178071" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="fbuccoli" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="francoiacovelli" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="guidoimperatore" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="igormacori" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="geniodelmale" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="luca-pagliari-95a9b829a" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="luca-scarano" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="lucavitali" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="pandolfino" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="marco-adamo-92279a32" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="marcodalpino" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="marcofilocamo" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="massimobonanni" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="querze" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="rubertimichele" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="nicolaferrini" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="oriano-crippa-b2ab926" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="paolo-miotti-4480287" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="raffaelecolavecchi" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="roberto-mensa-a5850031" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="samuele-vagli-b63717128" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="zenotestoni" data-version="v1"></div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="badge">
-                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light"
-                    data-type="VERTICAL" data-vanity="stefania-maggiorelli-2a971010" data-version="v1"></div>
-            </div>
-        </div>
+  <style>
+    /* Stile fallback (solo se i badge non caricano) */
+    .badge-fallback{
+      width: var(--badge-w);
+      height: 100%;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      background: #fff;
+      padding: 14px;
+    }
+    .badge-fallback .brand{
+      color: var(--li-blue);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .badge-fallback a{
+      display: inline-block;
+      margin-top: 12px;
+      color: #fff;
+      background: var(--li-blue);
+      text-decoration: none;
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
 
-    </div>
-
+    @media (prefers-color-scheme: dark){
+      .badge-fallback{ background: #1e1e1e; border-color: #333; }
+    }
+  </style>
 </body>
-
 </html>
